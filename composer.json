@@ -1,0 +1,24 @@
+{
+    "name": "restricted/authchain",
+    "description": "Laravel 4 Chain authentication (LDAP, IMAP, Eloquent)",
+    "keywords": ["laravel", "authentication", "security"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Dementyev Alexey",
+            "email": "alexey.dementyev@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "ext-ldap": "*",
+        "ext-imap": "*",
+        "illuminate/support": "4.0.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Restricted\\Authchain\\": "src/"
+        }
+    },
+    "minimum-stability": "stable"
+}

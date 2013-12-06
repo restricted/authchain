@@ -11,8 +11,6 @@
     ],
     "require": {
         "php": ">=5.3.0",
-        "ext-ldap": "*",
-        "ext-imap": "*",
         "illuminate/support": "4.0.*"
     },
     "autoload": {
@@ -20,5 +18,5 @@
             "Restricted\\Authchain\\": "src/"
         }
     },
-    "minimum-stability": "stable"
+    "minimum-stability": "dev"
 }

@@ -43,9 +43,9 @@ You ``must`` change method `getAuthPassword()` to:
 
 ```php
 public function getAuthPassword()
-    {
-        return Crypt::decrypt($this->password);
-    }
+{
+    return Crypt::decrypt($this->password);
+}
 ```
 Or simply copy model from `vendor/restricted/authchain/src/models/` to `app/models`.
 
@@ -79,13 +79,27 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 Add routes in `app/routes.php`:
 
 ```php
-Route::filter('guest', function () { if (Auth::check()) { return Redirect::route('home'); }});
-Route::filter('auth', function () { if (Auth::guest()) { return Redirect::route('login')->with('flash_notice', 'You are already logged in!'); }});
+Route::filter('guest', function () {
+    if (Auth::check()) {
+        return Redirect::route('home');
+    }
+});
+
+Route::filter('auth', function () {
+    if (Auth::guest()) {
+        return Redirect::route('login')->with('flash_notice', 'You are already logged in!');
+    }
+});
 
 Route::post('login', 'AuthController@login');
+
 Route::get('login', array('as'=>'login', 'uses'=>'AuthController@loginPage'));
+
 Route::get('logout', array('as'=>'logout', 'uses'=>'AuthController@logout'));
-Route::get('/', array('before' => 'auth', 'as' => 'home', function () { return View::make('hello'); }));
+
+Route::get('/', array('before' => 'auth', 'as' => 'home', function () {
+    return View::make('hello');
+}));
 ```
 
 Create AuthController.php in `app/controllers` with:
@@ -95,7 +109,10 @@ class AuthController extends BaseController
 {
     public function login()
     {
-        $credentials = array('username' => Input::get('username'),'password' => Input::get('password'));
+        $credentials = array(
+            'username' => Input::get('username'),
+            'password' => Input::get('password')
+        );
       	if ($credentials['username'] == '' or $credentials['password'] == '') {
       	    return Redirect::route('login')
                 ->withInput(Input::except('password'))

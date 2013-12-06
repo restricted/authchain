@@ -121,7 +121,9 @@ class AuthController extends BaseController
         if (Auth::attempt($credentials)) {
             return Redirect::refresh();
         }
-        return Redirect::route('login')->withInput(Input::except('password'))->with('error', 'Wrong username or password');
+        return Redirect::route('login')
+            ->withInput(Input::except('password'))
+            ->with('error', 'Wrong username or password');
     }
 
     public function loginPage()

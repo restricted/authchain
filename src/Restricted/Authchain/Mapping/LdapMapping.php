@@ -11,6 +11,7 @@
 namespace Restricted\Authchain\Mapping;
 
 use Illuminate\Auth\UserInterface;
+use Restricted\Authchain\Config\Loader;
 
 /**
  * Class LdapMapping
@@ -31,6 +32,10 @@ class LdapMapping
         "LOCKOUT"            => 514,
         "ACCOUNTDISABLE"     => 2
     );
+    /**
+     * @var array
+     */
+    protected $mappings = array();
 
     /**
      * Constructor. Sets mappings from config.
@@ -52,11 +57,15 @@ class LdapMapping
      */
     public function map($ldap, UserInterface $model)
     {
+        if (!isset($ldap[strtolower($this->mappings['fields'][Loader::username()])])) {
+            return false;
+        }
         foreach ($this->mappings['fields'] as $field => $mapped) {
+            $mapped = strtolower($mapped);
             if (!isset($ldap[$mapped])) {
                 continue;
             }
-            if ($mapped == 'userAccountControl') {
+            if ($mapped == 'useraccountcontrol') {
                 if (!in_array($ldap[$mapped][0], $this->locked)) {
                     $ldap[$mapped][0] = true;
                 } else {

@@ -45,11 +45,11 @@ class ChainAuthenticationProvider implements UserProviderInterface
      */
     public function retrieveByCredentials(array $credentials)
     {
-        if ($user = $this->delegator->native($credentials)->authenticate() and $this->validateCredentials($user, $credentials)) {
+        if ($user = $this->delegator->provider($credentials)->authenticate() and $this->validateCredentials($user, $credentials)) {
             return $user;
         }
 
-        return $this->delegator->provider($credentials)->authenticate();
+        return false;
     }
 
     /**

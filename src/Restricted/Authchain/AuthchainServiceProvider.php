@@ -63,6 +63,16 @@ class AuthchainServiceProvider extends ServiceProvider
      */
     public function register()
     {
+
+        $this->app['authchain.ldap.import'] = $this->app->share(
+            function () {
+                return new Command\LdapImportCommand();
+            }
+        );
+
+        $this->commands(
+            'authchain.ldap.import'
+        );
     }
 
 }

@@ -65,7 +65,7 @@ class DelegatingAuthentication
             return $this->provider;
         }
         $domain = explode("@", $credentials[Loader::username()])[1];
-        if ($this->provider = $this->resolver->get(Loader::domain($domain)['provider'], $credentials)) {
+        if (Loader::hasDomain($domain) and $this->provider = $this->resolver->get(Loader::domain($domain)['provider'], $credentials)) {
             return $this->provider;
         }
 

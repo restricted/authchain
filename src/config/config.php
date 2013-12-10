@@ -18,6 +18,9 @@ return array(
      * fieldcheck: provide array of required model->key = value, for example, user->enabled must be true
      * native.provider: native provider (only one now supports)
      * native.connections: if you have many authentication databases, authenticate user in chain (for single sign-on)
+     * ip.model: class of your ip address model
+     * ip.ip_address_field: field contains ip address in ip model
+     * ip.relation: name of the relation to user (method name that hasMany('ip'))
      *
      */
     'defaults'  => array(
@@ -30,6 +33,11 @@ return array(
                 0 => 'pgsql',
                 1 => 'sqlite'
             ),
+        ),
+        'ip'     => array(
+            'model'            => 'Ip',
+            'ip_address_field' => 'address',
+            'relation'         => 'user'
         ),
     ),
     /**

@@ -3,6 +3,11 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
+/**
+ * Class CreateUsersTable
+ *
+ * Example migration for User model
+ */
 class CreateUsersTable extends Migration
 {
 
@@ -28,6 +33,7 @@ class CreateUsersTable extends Migration
                 $table->string('mobile')->nullable();
                 $table->boolean('enabled');
                 $table->text('password')->nullable();
+                $table->unique('username');
             }
         );
     }

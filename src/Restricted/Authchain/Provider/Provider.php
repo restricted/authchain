@@ -12,7 +12,6 @@ namespace Restricted\Authchain\Provider;
 
 use Illuminate\Auth\UserInterface;
 use Restricted\Authchain\Config\Loader;
-use Restricted\Authchain\Resolver\ProviderResolver;
 use Restricted\Authchain\Resolver\ResolverInterface;
 
 /**

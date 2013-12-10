@@ -81,4 +81,14 @@ class ChainAuthenticationProvider implements UserProviderInterface
 
         return Redirect::refresh('302');
     }
+
+    /**
+     * Retrieve user by ip address
+     *
+     * @return bool|UserInterface
+     */
+    public function retrieveByIpAddress()
+    {
+        return $this->delegator->resolver()->get('ip')->authenticate();
+    }
 }

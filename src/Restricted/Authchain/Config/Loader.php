@@ -21,78 +21,23 @@ class Loader
 {
 
     /**
-     * Get user model class name
+     * Get database connections for native provider
      *
-     * @public
-     * @static
+     * @return array|bool
+     */
+    public static function connections()
+    {
+        return isset(self::defaults()['native']['connections']) ? self::defaults()['native']['connections'] : false;
+    }
+
+    /**
+     * Get default database connection
+     *
      * @return string
      */
-    public static function user()
+    public static function defaultConnection()
     {
-        return Config::get('auth.model', 'User');
-    }
-
-    /**
-     * Get providers from configuration
-     *
-     * @public
-     * @static
-     * @return array
-     */
-    public static function providers()
-    {
-        return Config::get('authchain::providers', array());
-    }
-
-    /**
-     * Get configuration defaults
-     *
-     * @public
-     * @static
-     * @return mixed
-     */
-    public static function defaults()
-    {
-        return Config::get('authchain::defaults', array());
-    }
-
-    /**
-     * Get username field from Config. Fallback to default 'username'.
-     *
-     * @public
-     * @static
-     * @return string Username database field
-     */
-    public static function username()
-    {
-        return Config::get('auth.username', 'username');
-    }
-
-    /**
-     * Get password field from Config. Fallback to default 'password'.
-     *
-     * @public
-     * @static
-     * @return string
-     */
-    public static function password()
-    {
-        return Config::get('auth.password', 'password');
-    }
-
-    /**
-     * Configuraion for domain is exists or not
-     *
-     * @public
-     * @static
-     *
-     * @param string $domain
-     *
-     * @return bool
-     */
-    public static function hasDomain($domain)
-    {
-        return isset(self::domains()[$domain]);
+        return Config::get('database::default');
     }
 
     /**
@@ -111,6 +56,21 @@ class Loader
     }
 
     /**
+     * Configuraion for domain is exists or not
+     *
+     * @public
+     * @static
+     *
+     * @param string $domain
+     *
+     * @return bool
+     */
+    public static function hasDomain($domain)
+    {
+        return isset(self::domains()[$domain]);
+    }
+
+    /**
      * Get domains configuration
      *
      * @public
@@ -121,6 +81,28 @@ class Loader
     public static function domains()
     {
         return Config::get('authchain::domains', array());
+    }
+
+    /**
+     * Get ip address authentication config
+     *
+     * @return array
+     */
+    public static function ip()
+    {
+        return isset(self::defaults()['ip']) ? self::defaults()['ip'] : false;
+    }
+
+    /**
+     * Get configuration defaults
+     *
+     * @public
+     * @static
+     * @return mixed
+     */
+    public static function defaults()
+    {
+        return Config::get('authchain::defaults', array());
     }
 
     /**
@@ -136,23 +118,51 @@ class Loader
     }
 
     /**
-     * Get database connections for native provider
+     * Get password field from Config. Fallback to default 'password'.
      *
-     * @return array|bool
+     * @public
+     * @static
+     * @return string
      */
-    public static function connections()
+    public static function password()
     {
-        return isset(self::defaults()['native']['connections']) ? self::defaults()['native']['connections'] : false;
+        return Config::get('auth.password', 'password');
     }
 
     /**
-     * Get default database connection
+     * Get providers from configuration
      *
+     * @public
+     * @static
+     * @return array
+     */
+    public static function providers()
+    {
+        return Config::get('authchain::providers', array());
+    }
+
+    /**
+     * Get user model class name
+     *
+     * @public
+     * @static
      * @return string
      */
-    public static function defaultConnection()
+    public static function user()
     {
-        return Config::get('database::default');
+        return Config::get('auth.model', 'User');
+    }
+
+    /**
+     * Get username field from Config. Fallback to default 'username'.
+     *
+     * @public
+     * @static
+     * @return string Username database field
+     */
+    public static function username()
+    {
+        return Config::get('auth.username', 'username');
     }
 
 

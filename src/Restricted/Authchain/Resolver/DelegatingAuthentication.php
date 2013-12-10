@@ -73,6 +73,16 @@ class DelegatingAuthentication
     }
 
     /**
+     * Get provider resolver instance
+     *
+     * @return ProviderResolver
+     */
+    public function resolver()
+    {
+        return $this->resolver;
+    }
+
+    /**
      * Check credentials fields from auth config
      *
      * @param $credentials

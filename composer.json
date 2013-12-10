@@ -1,14 +1,20 @@
 {
     "name": "restricted/authchain",
-    "description": "Laravel 4 chain authentication (LDAP, IMAP, Eloquent)",
+    "description": "Laravel 4 chain authentication (LDAP, IMAP, IP, Eloquent)",
     "keywords": ["laravel", "authentication", "security"],
     "license": "MIT",
     "authors": [
         {
             "name": "Dementyev Alexey",
-            "email": "alexey.dementyev@gmail.com"
+            "email": "alexey.dementyev@gmail.com",
+            "homepage": "http://adementyev.com",
+            "role": "Lead developer"
         }
     ],
+    "support": {
+        "email": "alexey.dementyev@gmail.com",
+        "issues": "https://github.com/restricted/authchain/issues"
+    },
     "require": {
         "php": ">=5.3.0",
         "illuminate/support": "4.0.*"

@@ -8,7 +8,8 @@ return array(
     'providers' => array(
         'Restricted\Authchain\Provider\Domain\LdapProvider',
         'Restricted\Authchain\Provider\Domain\ImapProvider',
-        'Restricted\Authchain\Provider\Native\EloquentProvider',
+		'Restricted\Authchain\Provider\Domain\IpAddressProvider',
+        'Restricted\Authchain\Provider\Native\EloquentProvider'
     ),
     /**
      * Set defaults

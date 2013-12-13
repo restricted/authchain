@@ -78,9 +78,9 @@ class EloquentProvider extends Provider implements NativeProviderInterface
     {
         $model = $this->model();
         $model->setConnection($connection);
-        $user = $model->where($key, $value)->first();
-        if ($user) {
-            return $user;
+        $user = $model->where($key, $value);
+        if ($user->exists()) {
+            return $user->first();
         }
 
         return false;

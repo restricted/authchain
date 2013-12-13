@@ -10,7 +10,6 @@
 
 namespace Restricted\Authchain\Provider\Domain;
 
-use Crypt;
 use Hash;
 use Restricted\Authchain\Config\Loader;
 use Restricted\Authchain\Mapping\LdapMapping;
@@ -64,7 +63,7 @@ class LdapProvider extends Provider implements ProviderInterface
     public function register($user)
     {
         $mapping                     = new LdapMapping($this->config['mappings']);
-        $user[Loader::password()][0] = Crypt::encrypt(Hash::make($this->password));
+        $user[Loader::password()][0] = Hash::make($this->password);
 
         return $mapping->map($user, $this->model());
     }

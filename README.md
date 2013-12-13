@@ -40,17 +40,10 @@ Please see `app/config/packages/restricted/authchain/config.php` for configurati
 You need to create User model in `app/models` and create migration.
 For details on models and migrations you can see `vendor/restricted/authchain/quickstart`
 
-You ``must`` change method `getAuthPassword()` to:
-
-```php
-public function getAuthPassword()
-{
-    return Crypt::decrypt($this->password);
-}
-```
-Or simply copy model from `vendor/restricted/authchain/quickstart/models/User.php` to `app/models`.
-
+Simply copy contents of folder `vendor/restricted/authchain/quickstart/models/` to `app/models`.
 Example migration can be executed by command `php artisan migrate --package="restricted/authchain"`. NOTE: migration does`t include timestamps.
+
+If you don't use ip address authentication, set `['defaults']['ip']` to `false` in `app/config/packages/restricted/authchain/config.php`.
 
 ## Quickstart
 

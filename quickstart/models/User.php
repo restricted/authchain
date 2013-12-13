@@ -46,7 +46,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface
      */
     public function getAuthPassword()
     {
-        return Crypt::decrypt($this->password);
+        return $this->password;
     }
 
     /**

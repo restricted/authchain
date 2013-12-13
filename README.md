@@ -11,7 +11,7 @@ For LDAP and IMAP authentication you need to have `ldap` and `imap` php extensio
 Installing this package through Composer. Edit your project's `composer.json` file to require `restricted/authchain`.
 
 	"require": {
-		"laravel/framework": "4.0.*",
+		"laravel/framework": "4.1.*",
 		"restricted/authchain": "1.0.*"
 	},
 	"minimum-stability" : "dev"

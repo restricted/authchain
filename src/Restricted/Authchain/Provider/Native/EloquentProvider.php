@@ -33,7 +33,7 @@ class EloquentProvider extends Provider implements NativeProviderInterface
             }
         }
 
-        return false;
+        return null;
     }
 
     /**
@@ -64,7 +64,7 @@ class EloquentProvider extends Provider implements NativeProviderInterface
             }
         }
 
-        return false;
+        return null;
     }
 
     /**
@@ -83,7 +83,7 @@ class EloquentProvider extends Provider implements NativeProviderInterface
             return $user->first();
         }
 
-        return false;
+        return null;
     }
 
     /**
@@ -113,7 +113,7 @@ class EloquentProvider extends Provider implements NativeProviderInterface
             }
         }
 
-        return false;
+        return null;
     }
 
     /**
@@ -128,7 +128,7 @@ class EloquentProvider extends Provider implements NativeProviderInterface
         $model->setConnection($connection);
         $user = $model->find($identifier);
         if (!$user) {
-            return false;
+            return null;
         }
 
         return $user;

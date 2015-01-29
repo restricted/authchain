@@ -11,12 +11,12 @@
 namespace Restricted\Authchain;
 
 use Hash;
-use Session;
-use Redirect;
 use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\UserProviderInterface;
+use Redirect;
 use Restricted\Authchain\Config\Loader;
 use Restricted\Authchain\Resolver\DelegatingAuthentication;
+use Session;
 
 /**
  * Class ChainAuthenticationProvider
@@ -49,7 +49,7 @@ class ChainAuthenticationProvider implements UserProviderInterface
             return $user;
         }
 
-        return false;
+        return null;
     }
 
     /**
@@ -58,9 +58,8 @@ class ChainAuthenticationProvider implements UserProviderInterface
     public function validateCredentials(UserInterface $user, array $credentials)
     {
         $plain = $credentials[Loader::password()];
-
         if (!Hash::check($plain, $user->getAuthPassword())) {
-            return false;
+            return null;
         }
 
         return $user;
@@ -90,5 +89,33 @@ class ChainAuthenticationProvider implements UserProviderInterface
     public function retrieveByIpAddress()
     {
         return $this->delegator->resolver()->get('ip')->authenticate();
+    }
+
+    /**
+     * Retrieve a user by by their unique identifier and "remember me" token.
+     *
+     * @param  mixed  $identifier
+     * @param  string $token
+     *
+     * @return \Illuminate\Auth\UserInterface|null
+     */
+    public function retrieveByToken($identifier, $token)
+    {
+        // TODO: Implement "remember me" functionality
+        return null;
+    }
+
+    /**
+     * Update the "remember me" token for the given user in storage.
+     *
+     * @param  \Illuminate\Auth\UserInterface $user
+     * @param  string                         $token
+     *
+     * @return void
+     */
+    public function updateRememberToken(UserInterface $user, $token)
+    {
+        // TODO: Implement "remember me" functionality
+        return null;
     }
 }

@@ -158,7 +158,7 @@
         </div>
         @endif
         <div class="inputwrapper">
-            {{ Form::input('text', 'username', 'username', array('id' => 'username', 'placeholder' => 'Username') ) }}
+            {{ Form::input('text', 'username', '', array('id' => 'username', 'placeholder' => 'Username') ) }}
             {{ Form::input('hidden', '_token', csrf_token()) }}
         </div>
         <div class="inputwrapper">
@@ -170,14 +170,14 @@
         <div class="inputwrapper">
             <label>
                 {{ Form::input('checkbox', 'rememberme') }}
-                Keep me sign in
+                Keep me signed in
             </label>
         </div>
         {{ Form::close() }}
     </div>
 </div>
 <div class="loginfooter">
-    <p>&copy; 2013. Restricted. All Rights Reserved.</p>
+    <p>&copy; 2013-2015. Restricted. All Rights Reserved.</p>
 </div>
 </body>
 </html>

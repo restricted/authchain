@@ -4,7 +4,7 @@
  * This file is part of authchain, Laravel 4 chain authentication provider
  *
  * @author    Alexey Dementyev <alexey.dementyev@gmail.com>
- * @copyright Alexey Dementyev (c) 2013
+ * @copyright Alexey Dementyev (c) 2013-2015
  *
  **/
 

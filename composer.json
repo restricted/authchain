@@ -1,7 +1,13 @@
 {
     "name": "restricted/authchain",
     "description": "Laravel 4 chain authentication (LDAP, IMAP, IP, Eloquent)",
-    "keywords": ["laravel", "authentication", "security"],
+    "keywords": [
+        "laravel",
+        "authentication",
+        "security",
+        "ldap",
+        "imap"
+    ],
     "license": "MIT",
     "authors": [
         {
@@ -24,5 +30,5 @@
             "Restricted\\Authchain\\": "src/"
         }
     },
-    "minimum-stability": "dev"
+    "minimum-stability": "stable"
 }

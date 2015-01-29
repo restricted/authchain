@@ -1,7 +1,7 @@
 Laravel 4 chain authentication provider
 =========
 
-Supports native database, LDAP, IMAP and ip address multi-domain authentication for single sign-on.
+Supports native database, LDAP, IMAP and IP address multi-domain authentication for single sign-on.
 
 For LDAP and IMAP authentication you need to have `ldap` and `imap` php extensions.
 
@@ -10,20 +10,10 @@ For LDAP and IMAP authentication you need to have `ldap` and `imap` php extensio
 
 Installing this package through Composer. Edit your project's `composer.json` file to require `restricted/authchain`.
 
-For Laravel 4.2 you need to add:
-
 	"require": {
 		"laravel/framework": "4.2.*",
 		"restricted/authchain": ">=1.0.6"
 	}
-
-For Laravel 4.0 and 4.1:
-
-	"require": {
-		"laravel/framework": "4.X.*",
-		"restricted/authchain": "1.0.5"
-	}
-
 
 Update Composer from the Terminal:
 
@@ -33,7 +23,7 @@ Once this operation completes, the next step is to add the service provider. Ope
 
 ```php
 'providers' => [
-    // ..
+    // Your Laravel providers here...
     'Restricted\Authchain\AuthchainServiceProvider'
 ]
 ```
@@ -42,15 +32,31 @@ Create example configuration file from terminal:
 
     php artisan config:publish restricted/authchain
 
-Finally, change default authentication provider to `authchain`. Open `app/config/auth.php` and change `driver` section to `authchain`.
+**Change default authentication provider to `authchain`.**
 
-Please see `app/config/packages/restricted/authchain/config.php` for configuration instructions.
+Open `app/config/auth.php` and change `driver` section to `authchain`.
+
+```
+return array(
+
+	'driver': 'authchain'
+
+	// Related stuff...
+);
+
+```
+
+Please see `app/config/packages/restricted/authchain/config.php` for full configuration instructions.
 
 You need to create User model in `app/models` and create migration.
+
 For details on models and migrations you can see `vendor/restricted/authchain/quickstart`
 
-Simply copy contents of folder `vendor/restricted/authchain/quickstart/models/` to `app/models`.
-Example migration can be executed by command `php artisan migrate --package="restricted/authchain"`. NOTE: migration does`t include timestamps.
+You can simply copy contents of folder `vendor/restricted/authchain/quickstart/models/` to `app/models`.
+
+Example migration can be executed by command 
+`php artisan migrate --package="restricted/authchain"`. 
+> NOTE: migration does`t include timestamps.
 
 If you don't use ip address authentication, set `['defaults']['ip']` to `false` in `app/config/packages/restricted/authchain/config.php`.
 
@@ -65,17 +71,97 @@ Install authchain provider (see [Installation](#installation))
 Configure your domains in `app/config/packages/restricted/authchain/config.php`
 
 Copy files from
-    `vendor/restricted/authchain/quickstart/models/` to `app/models`
-    `vendor/restricted/authchain/quickstart/controllers/` to `app/controllers`
-    `vendor/restricted/authchain/quickstart/views/` to `app/views`
 
-Add to your `app/filters.php` contents from `vendor/restricted/authchain/quickstart/filter.php`
+    cp -r vendor/restricted/authchain/quickstart/models/* app/models
+    cp -r vendor/restricted/authchain/quickstart/controllers/* app/controllers/
+    cp -r vendor/restricted/authchain/quickstart/views/* app/views
+
+Replace `auth` route filter in your file `app/filters.php` with contents from `vendor/restricted/authchain/quickstart/filters.php`
+
+	cat vendor/restricted/authchain/quickstart/filters.php >> app/filters.php
 
 Add to your `app/routes.php` contents from `vendor/restricted/authchain/quickstart/routes.php`
+
+	cat vendor/restricted/authchain/quickstart/routes.php >> app/routes.php 
 
 Serve your application from terminal: `php artisan serve`
 
 Go to `http://localhost:8000/` and enjoy!
+
+## Need community feedback
+- Need to implement oAuth2 ?
+- Other providers?
+
+## What is not implemented?
+- "Remember me" functionality for Laravel 4.2 (in next releases)
+
+## Contribute
+
+### Any suggestions are welcome
+
+You can easily write our own authentication provider for authchain:
+
+If you want your own native (database) provider, for example:
+
+```php
+namespace Restricted\Authchain\Provider\Native;
+
+use Restricted\Authchain\Config\Loader;
+use Restricted\Authchain\Provider\Provider;
+
+class MyProvider extends Provider implements NativeProviderInterface {
+
+	// Authentication logic
+	// $this->username is username provided by user
+	// $this->password is password from form
+	
+	public function authenticate() {
+			// TODO: Implement
+	};
+	
+	// Find user by key - username
+	// $key - is username field
+	// $value - is provided username
+	
+	public function findBy($key, $value) {
+			// TODO: Implement
+	};
+	
+	// Find by id for reloading user
+	
+	public function find($identifier) {
+		// TODO: Implement
+	};
+	
+} 
+```
+
+If you want custom provider:
+
+```php
+namespace Restricted\Authchain\Provider\Domain;
+
+use Restricted\Authchain\Provider\Provider;
+use Restricted\Authchain\Provider\ProviderInterface;
+
+class MyCustomProvider extends Provider implements ProviderInterface {
+	
+	// See in native provider example
+	
+	public function authenticate();
+	
+	// Must return name of the provider, for example 'custom'
+	// In app/config/packages/restricted/authchain/config.php
+	// you can regiter new provider in 'providers' array and pass config variables to it
+	
+	public function provides() {
+		return 'custom';
+	}
+}
+```
+
+- For questions, create issue with your question.
+- For request features, create issue with detailed explanation of a feature.
 
 
 ## License

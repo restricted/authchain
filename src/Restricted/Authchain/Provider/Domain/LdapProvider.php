@@ -4,7 +4,7 @@
  * This file is part of authchain, Laravel 4 chain authentication provider
  *
  * @author    Alexey Dementyev <alexey.dementyev@gmail.com>
- * @copyright Alexey Dementyev (c) 2013
+ * @copyright Alexey Dementyev (c) 2013-2015
  *
  **/
 
@@ -36,22 +36,23 @@ class LdapProvider extends Provider implements ProviderInterface
     {
 
         $this->config = Loader::domain($this->domain);
-        $ldap         = new Connection();
+        $ldap = new Connection();
         $ldap->connect($this->config['hosts']);
 
         if ($find = $this->resolver->native()->findBy(Loader::username(), $this->username)) {
-            $this->model                       = $find;
+            $this->model = $find;
             $this->model->{Loader::password()} = null;
             $this->model->save();
         }
 
         if (!$ldap->bind($this->username, $this->password)) {
-            return false;
+            Log::warning('Cannot bind to LDAP with ' . $this->username);
+            return null;
         }
-
         $user = $ldap->searchEntry($this->config['baseDN'], $this->config['mappings'], 'samaccountname=' . $this->login);
         if (!$user) {
-            throw new \Exception("User not found by provided DN`s. Check your settings.", 1);
+            Log::warning('User ' . $this->username . ' not found in baseDN ' . $this->config['baseDN']);
+            return null;
         }
 
         return $this->register($user);
@@ -62,7 +63,7 @@ class LdapProvider extends Provider implements ProviderInterface
      */
     public function register($user)
     {
-        $mapping                     = new LdapMapping($this->config['mappings']);
+        $mapping = new LdapMapping($this->config['mappings']);
         $user[Loader::password()][0] = Hash::make($this->password);
 
         return $mapping->map($user, $this->model());

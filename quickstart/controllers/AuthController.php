@@ -93,6 +93,6 @@ class AuthController extends BaseController
     {
         Auth::logout();
 
-        return Redirect::back();
+	return Redirect::home();
     }
 }

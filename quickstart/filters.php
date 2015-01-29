@@ -1,4 +1,3 @@
-<?php
 
 /**
  * Example authentication filter with ip address authentication check

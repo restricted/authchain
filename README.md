@@ -10,11 +10,20 @@ For LDAP and IMAP authentication you need to have `ldap` and `imap` php extensio
 
 Installing this package through Composer. Edit your project's `composer.json` file to require `restricted/authchain`.
 
+For Laravel 4.2 you need to add:
+
 	"require": {
-		"laravel/framework": "4.1.*",
-		"restricted/authchain": "1.0.*"
-	},
-	"minimum-stability" : "dev"
+		"laravel/framework": "4.2.*",
+		"restricted/authchain": "=>1.0.6"
+	}
+
+For Laravel 4.0 and 4.1:
+
+	"require": {
+		"laravel/framework": "4.X.*",
+		"restricted/authchain": "1.0.5"
+	}
+
 
 Update Composer from the Terminal:
 

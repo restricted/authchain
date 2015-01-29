@@ -14,7 +14,7 @@ For Laravel 4.2 you need to add:
 
 	"require": {
 		"laravel/framework": "4.2.*",
-		"restricted/authchain": "=>1.0.6"
+		"restricted/authchain": ">=1.0.6"
 	}
 
 For Laravel 4.0 and 4.1:

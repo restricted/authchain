@@ -2,6 +2,8 @@
     "name": "restricted/authchain",
     "description": "Laravel 4 chain authentication (LDAP, IMAP, IP, Eloquent)",
     "keywords": [
+	"auth",
+	"eloquent",
         "laravel",
         "authentication",
         "security",

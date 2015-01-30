@@ -163,15 +163,24 @@ class CustomProviderExample extends Provider implements ProviderInterface
 
 Create config for custom provider in `app/config/packages/restricted/authchain/config.php`:
 
+Register custom provider in section `providers`:
+
+    'providers' => array(
+        // ...
+        'Restricted\Authchain\Provider\Domain\CustomProviderExample',
+    )
+
 In section `domains`:
 
-	'localhost' => array(
-            'provider' => 'custom', // See method provides()
+    'localhost' => array(
+        'provider' => 'custom', // See method provides()
             'users' => array(
                 'demo@localhost' => '$2y$10$/Ij0dzDL49OaODli.1GcveefSdEapt2vgb8shplVI7RIJadPmL6km' // Encrypted password
-            )
         )
+    )
 
+
+Now, all users with domain `localhost` authenticates over custom provider and native provider (Eloquent).
 
 - For questions, create issue with your question.
 - For request features, create issue with detailed explanation of a feature.

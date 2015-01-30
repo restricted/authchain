@@ -24,7 +24,7 @@ interface ProviderInterface
     /**
      * Authenticate user
      *
-     * @return UserInterface|bool
+     * @return UserInterface|null
      */
     public function authenticate();
 

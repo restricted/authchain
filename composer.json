@@ -1,9 +1,11 @@
 {
     "name": "restricted/authchain",
+    "version": "1.0.8",
+    "time": "2015-01-30",
     "description": "Laravel 4 chain authentication (LDAP, IMAP, IP, Eloquent)",
     "keywords": [
-	"auth",
-	"eloquent",
+	    "auth",
+	    "eloquent",
         "laravel",
         "authentication",
         "security",
@@ -26,6 +28,10 @@
     "require": {
         "php": ">=5.3.0",
         "illuminate/support": "4.2.*"
+    },
+    "suggest": {
+        "ext-ldap": "For LDAP authentication provider",
+        "ext-imap": "For IMAP authentication provider"
     },
     "autoload": {
         "psr-0": {

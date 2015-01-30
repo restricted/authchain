@@ -51,6 +51,10 @@ class ChainAuthenticationProvider implements UserProviderInterface
             return $user;
         }
 
+        if ($user = $this->delegator->provider($credentials)->authenticate() and $this->validateCredentials($user, $credentials)) {
+            return $user;
+        }
+
         return null;
     }
 

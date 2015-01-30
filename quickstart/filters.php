@@ -2,7 +2,7 @@
 /**
  * Example authentication filter with ip address authentication check
  *
- * If you want to see in action copy it to your app/filters.php
+ * If you want to see in action, copy it to your app/filters.php
  */
 
 Route::filter('auth', function()

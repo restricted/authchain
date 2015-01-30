@@ -22,4 +22,4 @@ Route::get('logout', array('as' => 'logout', 'uses' => 'AuthController@logout'))
 /**
  * And home route must be named
  */
-Route::get('/', array('as' => 'home', function() { return View::make('hello'); }));
+Route::get('/', array('before' => 'auth','as' => 'home', function() { return View::make('hello'); }));

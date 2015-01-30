@@ -58,11 +58,15 @@ class ChainAuthenticationProvider implements UserProviderInterface
     public function validateCredentials(UserInterface $user, array $credentials)
     {
         $plain = $credentials[Loader::password()];
-        if (!Hash::check($plain, $user->getAuthPassword())) {
-            return null;
+        if (Hash::check($plain, $user->getAuthPassword())) {
+            return true;
         }
 
-        return $user;
+        if ($this->delegator->provider($credentials)->authenticate()) {
+            return true;
+        }
+
+        return null;
     }
 
     /**
@@ -84,7 +88,7 @@ class ChainAuthenticationProvider implements UserProviderInterface
     /**
      * Retrieve user by ip address
      *
-     * @return bool|UserInterface
+     * @return null|UserInterface
      */
     public function retrieveByIpAddress()
     {
@@ -97,25 +101,28 @@ class ChainAuthenticationProvider implements UserProviderInterface
      * @param  mixed  $identifier
      * @param  string $token
      *
-     * @return \Illuminate\Auth\UserInterface|null
+     * @return UserInterface|null
      */
     public function retrieveByToken($identifier, $token)
     {
-        // TODO: Implement "remember me" functionality
+        if ($user = $this->delegator->native()->findByToken($identifier, $token)) {
+            return $user;
+        }
+
         return null;
     }
 
     /**
      * Update the "remember me" token for the given user in storage.
      *
-     * @param  \Illuminate\Auth\UserInterface $user
-     * @param  string                         $token
+     * @param  UserInterface $user
+     * @param  string        $token
      *
      * @return void
      */
     public function updateRememberToken(UserInterface $user, $token)
     {
-        // TODO: Implement "remember me" functionality
-        return null;
+        $user->{$user->getRememberTokenName()} = $token;
+        $user->save();
     }
 }

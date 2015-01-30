@@ -4,12 +4,13 @@
  * This file is part of authchain, Laravel 4 chain authentication provider
  *
  * @author    Alexey Dementyev <alexey.dementyev@gmail.com>
- * @copyright Alexey Dementyev (c) 2013-2015
+ * @copyright Alexey Dementyev (c) 2013
  *
  **/
 
 namespace Restricted\Authchain\Provider\Native;
 
+use Illuminate\Auth\UserInterface;
 use Restricted\Authchain\Provider\ProviderInterface;
 
 /**
@@ -25,7 +26,7 @@ interface NativeProviderInterface extends ProviderInterface
      *
      * @param  integer|string $identifier User identifier
      *
-     * @return object|boolean              Return user or false
+     * @return UserInterface|null              Return user or false
      */
     public function find($identifier);
 
@@ -35,8 +36,18 @@ interface NativeProviderInterface extends ProviderInterface
      * @param  string $key
      * @param  string $value
      *
-     * @return object|boolean Return user or false
+     * @return UserInterface|null Return user or false
      */
     public function findBy($key, $value);
+
+    /**
+     * Find user by username and remember_me token
+     *
+     * @param string $identifier
+     * @param string $token
+     *
+     * @return UserInterface|null
+     */
+    public function findByToken($identifier, $token);
 
 }

@@ -10,6 +10,7 @@
 
 namespace Restricted\Authchain\Provider\Domain;
 
+use Hash;
 use Restricted\Authchain\Config\Loader;
 use Restricted\Authchain\Provider\Provider;
 use Restricted\Authchain\Provider\ProviderInterface;
@@ -35,10 +36,10 @@ class CustomProviderExample extends Provider implements ProviderInterface
 
         $password = $users[$this->username];
 
-        if (\Hash::check($this->password, $password)) {
+        if (Hash::check($this->password, $password)) {
             $newUser                       = $this->model();
             $newUser->{Loader::username()} = $this->username;
-            $newUser->{Loader::password()} = \Hash::make($password);
+            $newUser->{Loader::password()} = $password;
             $newUser->enabled              = true;
 
             $newUser->save();

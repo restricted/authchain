@@ -10,6 +10,7 @@
 
 namespace Restricted\Authchain;
 
+use Auth;
 use Illuminate\Auth\Guard;
 use Illuminate\Support\ServiceProvider;
 
@@ -37,7 +38,7 @@ class AuthchainServiceProvider extends ServiceProvider
     {
         $this->package('restricted/authchain');
 
-        \Auth::extend(
+        Auth::extend(
             'authchain',
             function ($app) {
                 return new Guard(new ChainAuthenticationProvider(), $app->make('session.store'));

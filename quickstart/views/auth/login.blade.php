@@ -4,13 +4,14 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
     <style>
         body.loginpage {
-            background: #0866c6;
+            background: #01579b;
         }
 
         body {
-            font-family: 'Helvetica Neue', Helvetica, sans-serif;
+            font-family: 'Roboto', 'Helvetica Neue', Helvetica, sans-serif;
         }
 
         a, a:hover, a:link, a:active, a:focus {
@@ -27,7 +28,7 @@
         textarea, button {
             outline: none;
             font-size: 13px;
-            font-family: 'RobotoRegular', 'Helvetica Neue', Helvetica, sans-serif;
+            font-family: 'Roboto', 'Helvetica Neue', Helvetica, sans-serif;
         }
 
         strong {
@@ -45,7 +46,7 @@
 
         .loginpanel {
             position: absolute;
-            top: 50%;
+            top: 45%;
             left: 50%;
             height: 300px;
         }
@@ -74,28 +75,34 @@
         }
 
         .inputwrapper input {
-            border: 0;
+            border: 1px solid #01579b;
             padding: 10px;
+            transition: border 0.5s;
             background: #fff;
+            box-shadow: inset 1px 1px 2px 0 #707070;
             width: 250px;
         }
 
         .inputwrapper input:active, .inputwrapper input:focus {
             background: #fff;
-            border: 0;
+            box-shadow: inset 1px 1px 2px 0 #707070;
+            border: 1px solid #0277bd;
         }
 
         .inputwrapper button {
             display: block;
-            border: 1px solid #0c57a3;
+            border: 1px solid #01579b;
             padding: 10px;
-            background: #0972dd;
+            background: #448aff;
             width: 100%;
             color: #fff;
             text-transform: uppercase;
         }
 
         .inputwrapper button:focus, .inputwrapper button:active, .inputwrapper button:hover {
+            cursor: pointer;
+            border: 1px solid #01579b;
+            box-shadow: inset 1px 1px 2px 0 #707070;
             background: #1e82e8;
         }
 
@@ -114,11 +121,6 @@
             vertical-align: middle;
         }
 
-        .inputwrapper .remember {
-            padding: 0;
-            background: none;
-        }
-
         .login-alert {
             display: none;
         }
@@ -134,15 +136,13 @@
             font-size: 11px;
             color: rgba(255, 255, 255, 0.5);
             position: absolute;
-            position: fixed;
             bottom: 0;
             left: 0;
             width: 100%;
             text-align: center;
-            font-family: arial, sans-serif !important;
+            font-family: 'Roboto', sans-serif !important;
             padding: 5px 0;
         }
-
 
     </style>
     <title>@yield('title')</title>
@@ -150,7 +150,7 @@
 <body class="loginpage">
 <div class="loginpanel">
     <div class="loginpanelinner">
-        <div class="logo"><h2>authentication</h2></div>
+        <div class="logo"><h2>Login form</h2></div>
         {{ Form::open(['login']) }}
         @if(Session::get('error'))
         <div class="inputwrapper login-alert">
@@ -169,7 +169,7 @@
         </div>
         <div class="inputwrapper">
             <label>
-                {{ Form::input('checkbox', 'rememberme') }}
+                {{ Form::input('checkbox', 'rememberme', '', array('class' => 'checkbox')) }}
                 Keep me signed in
             </label>
         </div>

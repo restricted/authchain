@@ -11,6 +11,7 @@
 namespace Restricted\Authchain\Provider\Domain;
 
 use Hash;
+use Log;
 use Restricted\Authchain\Config\Loader;
 use Restricted\Authchain\Mapping\LdapMapping;
 use Restricted\Authchain\Provider\Domain\Ldap\Connection;
@@ -51,7 +52,7 @@ class LdapProvider extends Provider implements ProviderInterface
         }
         $user = $ldap->searchEntry($this->config['baseDN'], $this->config['mappings'], 'samaccountname=' . $this->login);
         if (!$user) {
-            Log::warning('User ' . $this->username . ' not found in baseDN ' . $this->config['baseDN']);
+            Log::warning('User ' . $this->username . ' not found in baseDN.');
             return null;
         }
 

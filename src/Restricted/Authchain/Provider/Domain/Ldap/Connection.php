@@ -97,7 +97,7 @@ class Connection
     public function searchEntry(array $baseDn, $mappings, $filter)
     {
         $search = $this->search($baseDn, $mappings, $filter);
-        if ($search) {
+        if (isset($search[0])) {
             return $search[0];
         }
 

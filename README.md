@@ -92,73 +92,95 @@ Go to `http://localhost:8000/` and enjoy!
 - Need to implement oAuth2 ?
 - Other providers?
 
-## What is not implemented?
-- "Remember me" functionality for Laravel 4.2 (in next releases)
-
 ## Contribute
 
 ### Any suggestions are welcome
 
-You can easily write our own authentication provider for authchain:
+You can easily write your own authentication provider for authchain:
 
-If you want your own native (database) provider, for example:
+Custom provider example (see in `src/Restricted/Authchain/Provider/Domain/CustomProviderExample`):
 
 ```php
-namespace Restricted\Authchain\Provider\Native;
+
+namespace Restricted\Authchain\Provider\Domain;
 
 use Restricted\Authchain\Config\Loader;
 use Restricted\Authchain\Provider\Provider;
-
-class MyProvider extends Provider implements NativeProviderInterface {
-
-	// Authentication logic
-	// $this->username is username provided by user
-	// $this->password is password from form
-	
-	public function authenticate() {
-			// TODO: Implement
-	};
-	
-	// Find user by key - username
-	// $key - is username field
-	// $value - is provided username
-	
-	public function findBy($key, $value) {
-			// TODO: Implement
-	};
-	
-	// Find by id for reloading user
-	
-	public function find($identifier) {
-		// TODO: Implement
-	};
-	
-} 
-```
-
-If you want custom provider:
-
-```php
-namespace Restricted\Authchain\Provider\Domain;
-
-use Restricted\Authchain\Provider\Provider;
 use Restricted\Authchain\Provider\ProviderInterface;
 
-class MyCustomProvider extends Provider implements ProviderInterface {
+class CustomProviderExample extends Provider implements ProviderInterface
+{
+    // Authentication logic
+    // $this->username is username provided by user
+    // $this->password is password from form
+
+    // @return UserInterface|null
+
+    public function authenticate()
+    {
+    	// Loading users from config for domain $this->domain
+    	
+        $users = Loader::domain($this->domain)['users'];
+
+	// If user not found in array, return null
 	
-	// See in native provider example
+        if (!isset($users[$this->username])) {
+            return null;
+        }
 	
-	public function authenticate();
-	
-	// Must return name of the provider, for example 'custom'
-	// In app/config/packages/restricted/authchain/config.php
-	// you can regiter new provider in 'providers' array and pass config variables to it
-	
-	public function provides() {
-		return 'custom';
-	}
+	// Grab user password from config
+
+        $password = $users[$this->username];
+
+	// Check password
+
+        if (\Hash::check($this->password, $password)) {
+        
+            $newUser                       = $this->model();
+            $newUser->{Loader::username()} = $this->username;
+            $newUser->{Loader::password()} = \Hash::make($password);
+            $newUser->enabled              = true;
+
+            $newUser->save();
+
+            return $newUser;
+        }
+
+        return null;
+    }
+    
+    // Must return name of the provider, for example 'custom'
+    // In app/config/packages/restricted/authchain/config.php
+    // you can regiter new provider in 'providers' array and pass config variables to it
+
+    public function provides()
+    {
+        return 'custom';
+    }
+
 }
 ```
+
+Create config for custom provider in `app/config/packages/restricted/authchain/config.php`:
+
+Register custom provider in section `providers`:
+
+    'providers' => array(
+        // ...
+        'Restricted\Authchain\Provider\Domain\CustomProviderExample',
+    )
+
+In section `domains`:
+
+    'localhost' => array(
+        'provider' => 'custom', // See method provides()
+            'users' => array(
+                'demo@localhost' => '$2y$10$/Ij0dzDL49OaODli.1GcveefSdEapt2vgb8shplVI7RIJadPmL6km' // Encrypted password
+        )
+    )
+
+
+Now, all users with domain `localhost` authenticates over custom provider and native provider (Eloquent).
 
 - For questions, create issue with your question.
 - For request features, create issue with detailed explanation of a feature.

@@ -37,7 +37,7 @@ class ImapProvider extends Provider implements ProviderInterface
 
         foreach ($this->config['hosts'] as $name => $address) {
             try {
-                $this->connection = \imap_open("{" . $address . "/novalidate-cert}", $this->username, $this->password, null, 1);
+                $this->connection = \imap_open("{" . $address . "/novalidate-cert}", $this->username, $this->password, null, 1, array("DISABLE_AUTHENTICATOR" => "GSSAPI"));
                 if ($this->connection) {
                     break;
                 }

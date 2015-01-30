@@ -92,9 +92,6 @@ Go to `http://localhost:8000/` and enjoy!
 - Need to implement oAuth2 ?
 - Other providers?
 
-## What is not implemented?
-- "Remember me" functionality for Laravel 4.2 (in next releases)
-
 ## Contribute
 
 ### Any suggestions are welcome

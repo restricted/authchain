@@ -112,6 +112,8 @@ class MyProvider extends Provider implements NativeProviderInterface {
 	// $this->username is username provided by user
 	// $this->password is password from form
 	
+	// @return UserInterface|null
+	
 	public function authenticate() {
 			// TODO: Implement
 	};
@@ -120,13 +122,26 @@ class MyProvider extends Provider implements NativeProviderInterface {
 	// $key - is username field
 	// $value - is provided username
 	
+	// @return UserInterface|null
+	
 	public function findBy($key, $value) {
 			// TODO: Implement
 	};
 	
 	// Find by id for reloading user
+	// @return UserInterface|null
 	
 	public function find($identifier) {
+		// TODO: Implement
+	};
+	
+	// Find by id and remember_me token
+	// $identifier - id
+	// $token - remember_me token
+	
+	// @return UserInterface|null
+	
+	public function findByToken($identifier, $token) {
 		// TODO: Implement
 	};
 	
@@ -143,7 +158,7 @@ use Restricted\Authchain\Provider\ProviderInterface;
 
 class MyCustomProvider extends Provider implements ProviderInterface {
 	
-	// See in native provider example
+	// @see in native provider example
 	
 	public function authenticate();
 	

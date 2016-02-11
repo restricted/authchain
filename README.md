@@ -1,7 +1,7 @@
 Laravel 4 chain authentication provider
 =========
 
-** WARNING: Project no longer maintaned! **
+**WARNING: Project no longer maintaned!**
 
 Supports native database, LDAP, IMAP and IP address multi-domain authentication for single sign-on.
 

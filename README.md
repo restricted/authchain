@@ -1,6 +1,8 @@
 Laravel 4 chain authentication provider
 =========
 
+** WARNING: Project no longer maintaned! ***
+
 Supports native database, LDAP, IMAP and IP address multi-domain authentication for single sign-on.
 
 For LDAP and IMAP authentication you need to have `ldap` and `imap` php extensions.
